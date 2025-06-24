@@ -1,0 +1,23 @@
+trigger:
+- main
+
+pool:
+  name: Default
+
+steps:
+- task: Bash@3
+  displayName: 'Run Terraform Commands'
+  inputs:
+    targetType: 'inline'
+    script: |
+      echo "Initializing Terraform..."
+      terraform init -reconfigure
+      
+      echo "Validating Terraform configuration..."
+      terraform validate
+      
+      echo "Planning Terraform deployment..."
+      terraform plan
+      
+      echo "Applying Terraform changes..."
+      terraform apply -auto-approve
